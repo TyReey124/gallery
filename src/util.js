@@ -14,4 +14,6 @@ const mixArray = (array) => {
         array[firstIndex] = array[secondIndex];
         array[secondIndex] = intermediateElement;
     }
+
+    return array;
 }
