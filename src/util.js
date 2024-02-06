@@ -5,3 +5,13 @@ const getRandomInt = (min, max) => {
 }
 
 const getRandomArrayElement = (array) => array[getRandomInt(0, array.length - 1)];
+
+const mixArray = (array) => {
+    for(let i = 0; i < array.length; i++){
+        let firstIndex = getRandomInt(0, array.length - 1);
+        let secondIndex = getRandomInt(0, array.length - 1);
+        let intermediateElement = array[firstIndex];
+        array[firstIndex] = array[secondIndex];
+        array[secondIndex] = intermediateElement;
+    }
+}

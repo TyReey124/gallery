@@ -25,8 +25,12 @@ const generatePictures = (count) => {
     const pictures = [];
 
     for (let i = 0; i < count; i++) {
-        pictures.push(generatePicture());
+        const picture = generatePicture();
+        picture.id = i + 1;
+        pictures.push(picture);
     }
+
+    mixArray(pictures);
 
     return pictures;
 }
