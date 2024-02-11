@@ -1,8 +1,3 @@
-const MAX_COMMENT_COUNT = 10;
-const MAX_PICTURE_COUNT = 25;
-const MAX_AVATAR_COUNT = 6;
-const MAX_LIKES_COUNT = 200;
-
 const PICTURE_DESCRIPTIONS = [
     'Well Done!',
     'Nice Photo',
@@ -31,3 +26,9 @@ const USER_NAMES = [
     'Sony Boy',
     'Apple\'s maniac'
 ];
+
+export {
+    PICTURE_DESCRIPTIONS,
+    COMMENT_MESSAGES,
+    USER_NAMES
+};

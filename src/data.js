@@ -1,36 +1,70 @@
+import {getRandomInt, getRandomArrayElement} from './util.js';
+import {PICTURE_DESCRIPTIONS, COMMENT_MESSAGES, USER_NAMES} from './const.js';
+
+const MAX_COMMENT_COUNT = 10;
+const MAX_PICTURE_COUNT = 25;
+const MAX_AVATAR_COUNT = 6;
+const MAX_LIKES_COUNT = 200;
+
 const generateUser = () => ({
     name: getRandomArrayElement(USER_NAMES),
     avatar: `./avatars/${getRandomInt(1, MAX_AVATAR_COUNT)}.jpg`,
 });
 
-const generateComment = () => ({
-    id: getRandomInt(1, MAX_COMMENT_COUNT),
-    message: getRandomArrayElement(COMMENT_MESSAGES),
-    user: generateUser(),
-});
+const usedPictureIds = [];
+const usedCommentIds = [];
 
-const generatePicture = () => ({
-    id: getRandomInt(1, MAX_PICTURE_COUNT),
-    url: `./photos/${getRandomInt(1, MAX_PICTURE_COUNT)}.jpg`,
-    description: getRandomArrayElement(PICTURE_DESCRIPTIONS),
-    likes: getRandomInt(0, MAX_LIKES_COUNT),
-    comments: [
-        generateComment(),
-        generateComment(),
-        generateComment()
-    ],
-});
+const generateComment = (maxPictureId) => {
+    let commentId;
+    do {
+        commentId = getRandomInt(1, maxPictureId * MAX_COMMENT_COUNT);
+    } while (usedCommentIds.includes(commentId));
+    usedCommentIds.push(commentId);
 
-const generatePictures = (count) => {
-    const pictures = [];
+    const commentData = {
+        id: commentId,
+        message: getRandomArrayElement(COMMENT_MESSAGES),
+        user: generateUser(),
+    };
 
-    for (let i = 0; i < count; i++) {
-        const picture = generatePicture();
-        picture.id = i + 1;
-        pictures.push(picture);
+    return commentData;
+};
+
+const generatePicture = (maxPictureId) => {
+    let pictureId;
+    do {
+        pictureId = getRandomInt(1, maxPictureId);
+    } while (usedPictureIds.includes(pictureId));
+    usedPictureIds.push(pictureId);
+
+    const comments = []
+    for (let i = 0; i < getRandomInt(0, MAX_COMMENT_COUNT); i++) {
+        comments.push(generateComment(maxPictureId));
     }
 
-    mixArray(pictures);
+    const pictureData = {
+        id: pictureId,
+        url: `./photos/${getRandomInt(1, MAX_PICTURE_COUNT)}.jpg`,
+        description: getRandomArrayElement(PICTURE_DESCRIPTIONS),
+        likes: getRandomInt(0, MAX_LIKES_COUNT),
+        comments
+    };
 
-    return pictures;
-}
+    return pictureData;
+};
+
+// const generatePictures = (count) => {
+//     const pictures = [];
+
+//     for (let i = 0; i < count; i++) {
+//         pictures.push(generatePicture(count));
+//     }
+
+//     return pictures;
+// }
+
+// const generatePictures = (count) => new Array(10).fill(null).map(() => generatePicture(count));
+
+const generatePictures = (count) => Array.from({length: count}, () => generatePicture(count));
+
+export {generatePictures};
