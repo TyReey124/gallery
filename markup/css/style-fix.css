@@ -1,0 +1,71 @@
+label[for=upload-file] {
+    position: fixed;
+    top: auto;
+    bottom: 30px !important;
+    left: 30px !important;
+    z-index: 100;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    height: 80px;
+    font-size: 40px;
+    color: #000;
+    background-color: #fff;
+    border-radius: 100%;
+    transition-duration: 400ms;
+}
+
+body[data-auth=true] label[for=upload-file] {
+    display: flex;
+}
+
+label[for=upload-file]:hover {
+    transform: rotate(360deg);
+}
+
+.likes-count {
+    border: none;
+    background: none;
+    pointer-events: all;
+}
+
+.big-picture__img img {
+    width: 600px;
+    height: 600px;
+    object-fit: cover;
+    object-position: center;
+}
+
+.social__picture {
+    width: 35px;
+    height: 35px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 100%;
+}
+
+#upload-submit {
+    display: inline-flex;
+}
+
+#comment-form button[type=submit] {
+    display: flex;
+}
+
+#upload-submit,
+#comment-form button[type=submit] {
+    justify-content: center;
+    align-items: center;
+    pointer-events: all;
+    cursor: pointer;
+}
+
+.page-footer__copyright p {
+    margin: 0;
+    text-transform: none;
+}
+
+.spinner-border {
+    margin-right: 5px;
+}
