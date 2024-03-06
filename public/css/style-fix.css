@@ -69,3 +69,11 @@ label[for=upload-file]:hover {
 .spinner-border {
     margin-right: 5px;
 }
+
+.big-picture__preview {
+    padding-bottom: 0;
+}
+
+.big-pucture {
+    padding-bottom: 60px;
+}

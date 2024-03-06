@@ -8,7 +8,7 @@ const MAX_LIKES_COUNT = 200;
 
 const generateUser = () => ({
     name: getRandomArrayElement(USER_NAMES),
-    avatar: `./avatars/${getRandomInt(1, MAX_AVATAR_COUNT)}.jpg`,
+    avatar: `./img/avatars/${getRandomInt(1, MAX_AVATAR_COUNT)}.jpg`,
 });
 
 const usedPictureIds = [];
@@ -67,4 +67,6 @@ const generatePicture = (maxPictureId) => {
 
 const generatePictures = (count) => Array.from({length: count}, () => generatePicture(count));
 
-export {generatePictures};
+export {
+    generatePictures,
+};
