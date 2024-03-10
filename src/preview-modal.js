@@ -1,4 +1,5 @@
 import {renderCommentList} from "./comment-list.js";
+import {getPopupEscKeydownHandler, getOverlayClickHandler} from "./util.js";
 
 const previewModalElement = document.querySelector('.big-picture');
 const previewModalCloseElement = previewModalElement.querySelector('#picture-cancel');
@@ -7,17 +8,10 @@ const modalCommentsCount = previewModalElement.querySelector('.comments-count');
 const modalLikesCount = previewModalElement.querySelector('.likes-count');
 const modalSocialCaption = previewModalElement.querySelector('.social__caption');
 
-const onPopupEscKeydown = (evt) => {
-    if (evt.key == 'Escape') {
-        closePreviewModal();
-    }
-}
-
-const onOverlayClick = (evt) => {
-    if (!evt.target.closest('.big-picture__preview')) {
-        closePreviewModal();
-    }
-}
+const options = {
+    selector: '.big-picture__preview',
+    isChildrenNodes: false
+};
 
 const events = [
     {
@@ -28,12 +22,12 @@ const events = [
     {
         element: previewModalElement,
         type: 'click',
-        callback: onOverlayClick
+        callback: getOverlayClickHandler(closePreviewModal, options)
     },
     {
         element: document,
         type: 'keydown',
-        callback: onPopupEscKeydown
+        callback: getPopupEscKeydownHandler(closePreviewModal)
     },
 ];
 

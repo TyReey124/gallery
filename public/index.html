@@ -91,13 +91,12 @@
                                 type="file"
                                 name="filename"
                                 required
-                                disabled
                             >
                             <label class="img-upload__label img-upload__control" for="upload-file">&#43;</label>
                         </fieldset>
 
                         <!-- Форма редактирования изображения -->
-                        <div class="img-upload__overlay hidden" style="padding-bottom: 60px;">
+                        <div class="img-upload__overlay hidden" style="z-index: 200; padding-bottom: 60px;">
                             <div class="img-upload__wrapper" style="width: 600px;">
                                 <div class="img-upload__preview-container">
 
@@ -125,7 +124,7 @@
 
                                     <!-- Предварительный просмотр изображения -->
                                     <div class="img-upload__preview">
-                                        <img src="" width="568" height="568" alt="Предварительный просмотр фотографии">
+                                        <img src="./img/avatars/4.jpg" style="object-fit: cover; object-position: center;" width="568" height="568" alt="Предварительный просмотр фотографии">
                                     </div>
 
                                     <!-- Изменение глубины эффекта, накладываемого на изображение -->

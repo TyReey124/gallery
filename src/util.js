@@ -1,3 +1,5 @@
+const ESCAPE_CODE = 'Escape';
+
 const getRandomInt = (min, max) => {
     min = Math.ceil(min);
     max = Math.floor(max);
@@ -18,7 +20,34 @@ const mixArray = (array) => {
     return array;
 };
 
+const isEscKeydown = (evt) => evt.key === ESCAPE_CODE;
+
+const getPopupEscKeydownHandler = (cb) => {
+    return (evt) => {
+        if (isEscKeydown(evt)) {
+            cb();
+        }
+    };
+};
+
+const getOverlayClickHandler = (cb, options) => {
+    return (evt) => {
+        if (!options.isChildrenNodes && !evt.target.closest(options.selector)) {
+            cb();
+            return;
+        }
+
+        Array.from(evt.target.children).forEach((elem) => {
+            if (elem.closest(options.selector)) {
+                cb()
+            }
+        });
+    };
+};
+
 export {
     getRandomInt,
-    getRandomArrayElement
+    getRandomArrayElement,
+    getOverlayClickHandler,
+    getPopupEscKeydownHandler
 };
