@@ -7,7 +7,8 @@ const uploadWindowImgElement = document.querySelector('.img-upload__preview img'
 
 const options = {
     selector: '.img-upload__wrapper',
-    isChildrenNodes: true
+    isChildrenNodes: true,
+    isBootstrapModal: false
 };
 
 const events = [
@@ -50,7 +51,6 @@ function closeUploadWindow() {
 fileInputElement.addEventListener('change', (evt) => {
     uploadModalElement.classList.remove('hidden');
     updateUploadWindow(evt.target.files[0]);
-    console.log(evt.target.files);
 
     events.forEach(({element, type, callback}) => {
         element.addEventListener(type, callback);

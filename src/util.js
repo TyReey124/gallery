@@ -37,11 +37,13 @@ const getOverlayClickHandler = (cb, options) => {
             return;
         }
 
-        Array.from(evt.target.children).forEach((elem) => {
-            if (elem.closest(options.selector)) {
-                cb()
-            }
-        });
+        if (!options.isBootstrapModal) {
+            Array.from(evt.target.children).forEach((elem) => {
+                if (elem.closest(options.selector)) {
+                    cb()
+                }
+            });
+        }
     };
 };
 

@@ -10,7 +10,8 @@ const modalSocialCaption = previewModalElement.querySelector('.social__caption')
 
 const options = {
     selector: '.big-picture__preview',
-    isChildrenNodes: false
+    isChildrenNodes: false,
+    isBootstrapModal: false
 };
 
 const events = [
