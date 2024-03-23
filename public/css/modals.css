@@ -1,7 +1,7 @@
 #login-modal,
 #signup-modal {
     top: -100%;
-    transition: 1000ms;
+    transition: var(--modal-transition);
 }
 
 #login-modal.show,

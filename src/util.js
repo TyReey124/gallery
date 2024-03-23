@@ -1,5 +1,3 @@
-const ESCAPE_CODE = 'Escape';
-
 const getRandomInt = (min, max) => {
     min = Math.ceil(min);
     max = Math.floor(max);
@@ -20,11 +18,9 @@ const mixArray = (array) => {
     return array;
 };
 
-const isEscKeydown = (evt) => evt.key === ESCAPE_CODE;
-
-const getPopupEscKeydownHandler = (cb) => {
+const getPopupKeydownHandler = (cb, key) => {
     return (evt) => {
-        if (isEscKeydown(evt)) {
+        if (evt.key === key) {
             cb();
         }
     };
@@ -51,5 +47,5 @@ export {
     getRandomInt,
     getRandomArrayElement,
     getOverlayClickHandler,
-    getPopupEscKeydownHandler
+    getPopupKeydownHandler
 };

@@ -1,5 +1,5 @@
 import {renderCommentList} from "./comment-list.js";
-import {getPopupEscKeydownHandler, getOverlayClickHandler} from "./util.js";
+import {getPopupKeydownHandler, getOverlayClickHandler} from "./util.js";
 
 const previewModalElement = document.querySelector('.big-picture');
 const previewModalCloseElement = previewModalElement.querySelector('#picture-cancel');
@@ -28,7 +28,7 @@ const events = [
     {
         element: document,
         type: 'keydown',
-        callback: getPopupEscKeydownHandler(closePreviewModal)
+        callback: getPopupKeydownHandler(closePreviewModal, 'Escape')
     },
 ];
 

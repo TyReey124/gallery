@@ -1,4 +1,5 @@
-import {getPopupEscKeydownHandler, getOverlayClickHandler} from "./util.js";
+import {getPopupKeydownHandler, getOverlayClickHandler} from "./util.js";
+import {MODAL_TRANSITION} from "./const.js";
 
 const loginModalBtn = document.querySelector('#signin-btn');
 const loginModalElement = document.querySelector('#login-modal');
@@ -9,7 +10,7 @@ const modalBackdropTemplate = document.querySelector('#modal-backdrop')
 const modalBackdropElements = document.getElementsByClassName('modal-backdrop');
 
 const options = {
-    selector: '.modal-dialog',
+    selector: '.modal-content',
     isChildrenNodes: false,
     isBootstrapModal: true
 };
@@ -28,32 +29,37 @@ const events = [
     {
         element: document,
         type: 'keydown',
-        callback: getPopupEscKeydownHandler(closeLoginModal)
+        callback: getPopupKeydownHandler(closeLoginModal, 'Escape')
     },
 ];
 
 const openLoginModal = () => {
-    loginModalElement.style.display = 'block';
-    loginModalElement.classList.add('show');
-    document.body.classList.add('modal-open');
     const modalBackdropElement = modalBackdropTemplate.cloneNode(true);
     loginModalElement.insertAdjacentElement('afterend', modalBackdropElement);
+    loginModalElement.style.display = 'block';
 
+    setTimeout(() => {
+        loginModalElement.classList.add('show');
+        document.body.classList.add('modal-open');
 
-    events.forEach(({element, type, callback}) => {
-        element.addEventListener(type, callback);
-    });
+        events.forEach(({element, type, callback}) => {
+            element.addEventListener(type, callback);
+        });
+    }, 0);
 };
 
 loginModalBtn.addEventListener('click', openLoginModal);
 
 function closeLoginModal() {
-    loginModalElement.style.display = 'none';
-    loginModalElement.classList.remove('show');
-    document.body.classList.remove('modal-open');
     Array.from(modalBackdropElements).forEach((bd) => bd.remove());
+    loginModalElement.classList.remove('show');
 
-    events.forEach(({element, type, callback}) => {
-        element.removeEventListener(type, callback);
-    });
+    setTimeout(() => {
+        document.body.classList.remove('modal-open');
+        loginModalElement.style.display = 'none';
+
+        events.forEach(({element, type, callback}) => {
+            element.removeEventListener(type, callback);
+        });
+    }, MODAL_TRANSITION);
 };

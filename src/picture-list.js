@@ -8,19 +8,14 @@ const pictureTemplateElement = document.getElementById('picture')
 // Деструктуризация
 const renderPictureList = (pictures) => {
     pictures.forEach((picture) => {
-        const {url, comments, likes} = picture;
+        const {id, url, comments, likes} = picture;
         const pictureElement = pictureTemplateElement.cloneNode(true);
-        pictureElement.dataset.id = picture.id;
+        pictureElement.dataset.id = id;
         pictureElement.querySelector('.picture__img').src = url;
         pictureElement.querySelector('.picture__comments').textContent = comments.length;
         pictureElement.querySelector('.picture__likes').textContent = likes;
 
         pictureListElement.insertAdjacentElement('beforeend', pictureElement);
-        // pictureElement.addEventListener('click', (evt) => {
-        //     evt.preventDefault();
-        //     updatePreviewModal(picture);
-        //     openPreviewModal();
-        // });
     });
 
     pictureListElement.addEventListener('click', (evt) => {

@@ -1,4 +1,5 @@
-import {getPopupEscKeydownHandler, getOverlayClickHandler} from "./util.js";
+import {getPopupKeydownHandler, getOverlayClickHandler} from "./util.js";
+import {MODAL_TRANSITION} from "./const.js";
 
 const signupModalBtn = document.querySelector('#signup-btn');
 const signupModalElement = document.querySelector('#signup-modal');
@@ -28,31 +29,37 @@ const events = [
     {
         element: document,
         type: 'keydown',
-        callback: getPopupEscKeydownHandler(closeSignupModal)
+        callback: getPopupKeydownHandler(closeSignupModal, 'Escape')
     },
 ];
 
 const openSignupModal = () => {
-    signupModalElement.style.display = 'block';
-    signupModalElement.classList.add('show');
-    document.body.classList.add('modal-open');
     const modalBackdropElement = modalBackdropTemplate.cloneNode(true);
     signupModalElement.insertAdjacentElement('afterend', modalBackdropElement);
+    signupModalElement.style.display = 'block';
 
-    events.forEach(({element, type, callback}) => {
-        element.addEventListener(type, callback);
-    });
+    setTimeout(() => {
+        signupModalElement.classList.add('show');
+        document.body.classList.add('modal-open');
+
+        events.forEach(({element, type, callback}) => {
+            element.addEventListener(type, callback);
+        });
+    }, 0);
 };
 
 signupModalBtn.addEventListener('click', openSignupModal);
 
 function closeSignupModal() {
-    signupModalElement.style.display = 'none';
-    signupModalElement.classList.remove('show');
-    document.body.classList.remove('modal-open');
     Array.from(modalBackdropElements).forEach((bd) => bd.remove());
+    signupModalElement.classList.remove('show');
 
-    events.forEach(({element, type, callback}) => {
-        element.removeEventListener(type, callback);
-    });
+    setTimeout(() => {
+        signupModalElement.style.display = 'none';
+        document.body.classList.remove('modal-open');
+
+        events.forEach(({element, type, callback}) => {
+            element.removeEventListener(type, callback);
+        });
+    }, MODAL_TRANSITION);
 };
